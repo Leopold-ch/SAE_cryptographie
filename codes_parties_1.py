@@ -38,3 +38,34 @@ def cassage_brutal(message_clair, message_chiffre):
                 return (cle1, cle2)
     
     return (-1, -1)
+
+
+def cassage_astucieux(message_clair, message_chiffre):
+    """fonction de cassage brutal mais de façon astucieuse
+
+    Args:
+        message_clair (str): message en clair
+        message_chiffre (str): message chiffré
+
+    Returns:
+        tuple: couple de clés de chiffrement (-1 si clé non trouvée)
+    """
+    for cle1 in range(256):
+        for cle2 in range(256):
+            texte_chiffre = ""
+            carac_connus = {}
+            for carac in message_clair:
+                if carac not in carac_connus:
+                    carac_numerique = ord(carac)    #conversion du caractère en code ascii
+                    carac_simplement_chiffre = sdes.encrypt(cle1, carac_numerique)     #chiffrement du code ascii
+                    carac_doublement_chiffre = sdes.encrypt(cle2, carac_simplement_chiffre)    #second chiffrement
+                    carac_chiffre = chr(carac_doublement_chiffre)
+                    texte_chiffre += carac_chiffre
+                    carac_connus[carac] = carac_chiffre
+                else:
+                    texte_chiffre += carac_connus[carac]
+
+            if texte_chiffre == message_chiffre:
+                return (cle1, cle2)
+
+    return (-1, -1)

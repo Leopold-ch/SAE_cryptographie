@@ -69,3 +69,42 @@ def cassage_astucieux(message_clair, message_chiffre):
                 return (cle1, cle2)
 
     return (-1, -1)
+
+
+#scénario de démonstration
+if __name__ == '__main__':
+
+    import time
+
+    #liste des fichiers manipulables
+    fichiers = ["arsene_lupin_extrait.txt", "lettres_persanes.txt"]
+
+    #initialisation du texte et des clés utilisés pour l'experience
+    mon_texte = ouvrir_fichier(fichiers[0])
+    ma_cle_1 = 0b10000110   #en base 10 : 134
+    ma_cle_2 = 0b10101101   #en base 10 : 173
+
+    print('Texte à traiter :\n\n' + mon_texte)
+
+    mon_texte_chiffre = chiffrer_texte(mon_texte, ma_cle_1, ma_cle_2)
+    print("\n\nTexte chiffré :\n\n" + mon_texte_chiffre)
+
+    #cassage des clés par force brute
+    print('\n\nCassage en cours ...')
+    debut = time.time()
+    cles_cassage_brutal = cassage_brutal(mon_texte, mon_texte_chiffre)
+    fin = time.time()
+    temps_ecoule = int(fin - debut)
+    print('Clés issues du cassage brutal :', cles_cassage_brutal[0], cles_cassage_brutal[1])
+    print('Temps écoulé :', temps_ecoule, 'secondes')
+    print("Clés correctes :", cles_cassage_brutal == (ma_cle_1, ma_cle_2))
+
+    #cassage des clés par cassage astucieux
+    print('\nCassage en cours ...')
+    debut = time.time()
+    cles_cassage_astucieux = cassage_astucieux(mon_texte, mon_texte_chiffre)
+    fin = time.time()
+    temps_ecoule = int(fin - debut)
+    print('Clés issues du cassage astucieux :', cles_cassage_astucieux[0], cles_cassage_astucieux[1])
+    print('Temps écoulé :', temps_ecoule, 'secondes')
+    print("Clés correctes :", cles_cassage_astucieux == (ma_cle_1, ma_cle_2))

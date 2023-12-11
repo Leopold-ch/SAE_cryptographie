@@ -1,5 +1,5 @@
 """
-Ficher contenant des fonctions utilies
+Ficher contenant des fonctions utiles à la première partie
 """
 
 import simplified_des as sdes

@@ -2,7 +2,7 @@
 Fichier contenant les differentes fonction de chiffrement et de dechiffrement et le main
 """
 
-from fonction_utiles_partie_1 import *
+from fonctions_utiles_partie_1 import *
 import simplified_des as sdes
 
 
@@ -87,12 +87,12 @@ if __name__ == '__main__':
     import time
 
     #liste des fichiers manipulables
-    fichiers = ["arsene_lupin_extrait.txt", "lettres_persanes.txt"]
+    fichiers = ["textes/arsene_lupin_extrait.txt", "textes/lettres_persanes.txt"]
 
     #initialisation du texte et des clés utilisés pour l'experience
     mon_texte = ouvrir_fichier(fichiers[0])
-    MA_CLE_1 = 0b10000110   #en base 10 : 134
-    MA_CLE_2 = 0b10101101   #en base 10 : 173
+    MA_CLE_1 = 0b00100001   #en base 10 : 33
+    MA_CLE_2 = 0b10101010   #en base 10 : 170
 
     print('Texte à traiter :\n\n' + mon_texte)
 

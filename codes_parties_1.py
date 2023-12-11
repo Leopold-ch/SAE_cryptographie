@@ -20,3 +20,21 @@ def chiffrer_texte(texte, cle1, cle2):
         carac_doublement_chiffre = sdes.encrypt(cle2, carac_simplement_chiffre)    #second chiffrement
         texte_chiffre += chr(carac_doublement_chiffre)
     return texte_chiffre
+
+
+def cassage_brutal(message_clair, message_chiffre):
+    """fonction de cassage brutal
+
+    Args:
+        message_clair (str): message en clair
+        message_chiffre (str): message chiffré
+
+    Returns:
+        tuple: couple de clés de chiffrement (-1 si clé non trouvée)
+    """
+    for cle1 in range(256):
+        for cle2 in range(256):
+            if chiffrer_texte(message_clair, cle1, cle2) == message_chiffre:
+                return (cle1, cle2)
+    
+    return (-1, -1)

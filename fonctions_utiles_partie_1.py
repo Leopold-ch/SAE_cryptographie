@@ -1,4 +1,8 @@
-import simplified_DES as sdes
+"""
+Ficher contenant des fonctions utilies
+"""
+
+import simplified_des as sdes
 
 def ouvrir_fichier(nom_fichier):
     """fonction de lecture d'un fichier afin d'en connaître le contenu
@@ -29,8 +33,8 @@ def dechiffrer_texte(texte_chiffre, cle1, cle2):
     """
     texte_dechiffre = ""
     for carac in texte_chiffre:
-        carac_numerique = ord(carac)    #conversion du caractère en code ascii
-        carac_simplement_chiffre = sdes.decrypt(cle2, carac_numerique)     #chiffrement du code ascii
-        carac_dechiffre = sdes.decrypt(cle1, carac_simplement_chiffre)    #second chiffrement
+        carac_numerique = ord(carac) #conversion du caractère en code ascii
+        carac_simplement_chiffre = sdes.decrypt(cle2, carac_numerique) #chiffrement du code ascii
+        carac_dechiffre = sdes.decrypt(cle1, carac_simplement_chiffre) #second chiffrement
         texte_dechiffre += chr(carac_dechiffre)
     return texte_dechiffre

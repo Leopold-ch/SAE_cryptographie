@@ -33,6 +33,25 @@ def dechiffrement_AES(texte_chiffre, cle):
 
     return texte_dechiffre.decode()
 
+def cle_MrRobot(nom_image):
+    """fonction d'obtention de la clé de MrRobot
+
+    Args:
+        nom_image (str): lien de l'image contenant la clé
+
+    Returns:
+        bytes: chaîne de 64 bits
+    """
+    cle = ""
+    image = Image.open(nom_image)
+    pixels = list(image.getdata())
+
+    for i in range(64):
+        couleur = pixels[i]
+        cle += str(couleur % 2)
+    
+    return bytes(cle, 'utf-8')
+
 
 if __name__ == '__main__':
     

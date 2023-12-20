@@ -17,3 +17,18 @@ def chiffrement_AES(texte):
     texte_chiffre = fernet.encrypt(bytes(texte, "utf-8"))
 
     return cle, texte_chiffre
+
+def dechiffrement_AES(texte_chiffre, cle):
+    """fonction de déchiffrement de texte chiffré grâce à AES
+
+    Args:
+        texte_chiffre (bytes): texte chiffré
+        cle (bytes): clé utilisée pour chiffrer le texte
+
+    Returns:
+        str: texte déchiffré
+    """
+    fernet = Fernet(cle)
+    texte_dechiffre = fernet.decrypt(texte_chiffre)
+
+    return texte_dechiffre.decode()

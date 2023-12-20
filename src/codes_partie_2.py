@@ -58,7 +58,7 @@ if __name__ == '__main__':
     import time
     import random
     
-    mon_texte = ouvrir_fichier("lettres_persanes.txt")
+    mon_texte = ouvrir_fichier("textes/lettres_persanes.txt")
     
     #mesure du temps de chiffrement/déchiffrement avec SDES
     mesures_chiffrement = []
@@ -111,3 +111,10 @@ if __name__ == '__main__':
     
     print("\n\nLe plus rapide pour chiffrer est donc", ("SDES" if temps_moyen_dechiffrement_SDES < temps_moyen_dechiffrement_AES else "AES"))
     print("et pour déchiffrer, il s'agit de", ("SDES" if temps_moyen_dechiffrement_SDES < temps_moyen_dechiffrement_AES else "AES"))
+
+
+    #affichage de la clé de MrRobot
+    cle_de_MrRobot = cle_MrRobot("images/rossignol2.bmp")
+    print("\n\n\n+", "-"*24, "Clé de MrRobot", "-"*24, "+")
+    print("|", cle_de_MrRobot.decode(), "|")
+    print("+", "-"*64, "+")

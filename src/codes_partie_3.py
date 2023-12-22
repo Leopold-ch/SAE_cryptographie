@@ -1,4 +1,7 @@
 from scapy.all import *
+from codes_partie_2 import *
+from cryptography.hazmat.primitives.ciphers import *
+from cryptography.hazmat.primitives import *
 
 def filtre_UDP(paquets):
     """fonction permettant, à partir d'un ensemble d'échanges réseau,
@@ -27,3 +30,29 @@ def filtre_port(paquets_UDP, port_recherche):
         return [p for p in paquets_UDP if p[UDP].dport == port_recherche]
     except IndexError:
         print("La liste des paquets en paramètre est incorrecte !")
+
+
+def dechiffrement_plutotBonneConfidentialite(contenu_brut, chemin_image):
+    """fonction de déchiffrement par AES en mode CBC (PKCS7)
+
+    Args:
+        contenu_brut (bytes): contenu brut du paquet
+        chemin_image (str): chemin de l'image nécessaire pour trouver la clé de MrRobot
+
+    Returns:
+        bytes: contenu déchiffré
+    """
+    vecteur_initialisation = contenu_brut[:16]
+    contenu_chiffre = contenu_brut[16:]
+    cle = cle_MrRobot(chemin_image) * 4
+    cle = int(cle, 2).to_bytes(32, byteorder="big")
+    
+    cipher = Cipher(algorithms.AES(cle), modes.CBC(vecteur_initialisation))
+    decrypteur = cipher.decryptor()
+    contenu_dechiffre = decrypteur.update(contenu_chiffre) + decrypteur.finalize()
+
+    sans_padding = padding.PKCS7(128).unpadder()
+    contenu_dechiffre_sans_padding = sans_padding.update(contenu_dechiffre) + sans_padding.finalize()
+
+    return contenu_dechiffre_sans_padding
+

@@ -56,3 +56,19 @@ def dechiffrement_plutotBonneConfidentialite(contenu_brut, chemin_image):
 
     return contenu_dechiffre_sans_padding
 
+if __name__ == '__main__':
+        
+    paquets_extraits = rdpcap("trace_sae.cap") #echanges_reseau/
+    port_alice_bob = 9999
+    paquets_UDP = filtre_UDP(paquets_extraits)
+    paquets_filtres = filtre_port(paquets_UDP, port_alice_bob)
+
+    for num, message in enumerate(paquets_filtres):
+        
+        contenu_brut = bytes(message[UDP].payload)
+
+        message_dechiffre = dechiffrement_plutotBonneConfidentialite(contenu_brut, "rossignol2.bmp") #images/
+        
+        print("\n\nMessage n°", num+1, ':\t',  message.summary())
+        print("\nMessage déchiffré :", message_dechiffre.decode(), "\n")
+

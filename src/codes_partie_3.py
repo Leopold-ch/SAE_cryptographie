@@ -3,6 +3,7 @@ from codes_partie_2 import *
 from cryptography.hazmat.primitives.ciphers import *
 from cryptography.hazmat.primitives import *
 
+
 def filtre_UDP(paquets):
     """fonction permettant, à partir d'un ensemble d'échanges réseau,
     d'en extraire ceux étant ayant une sous couche UDP
@@ -14,6 +15,7 @@ def filtre_UDP(paquets):
         list: liste des paquet ayant une sous couche UDP
     """
     return [p for p in paquets if UDP in p]
+
 
 def filtre_port(paquets_UDP, port_recherche):
     """fonction permettant de ne conserver que les paquets
@@ -56,9 +58,10 @@ def dechiffrement_plutotBonneConfidentialite(contenu_brut, chemin_image):
 
     return contenu_dechiffre_sans_padding
 
+
 if __name__ == '__main__':
         
-    paquets_extraits = rdpcap("trace_sae.cap") #echanges_reseau/
+    paquets_extraits = rdpcap("echanges_reseau/trace_sae.cap")
     port_alice_bob = 9999
     paquets_UDP = filtre_UDP(paquets_extraits)
     paquets_filtres = filtre_port(paquets_UDP, port_alice_bob)
@@ -67,8 +70,7 @@ if __name__ == '__main__':
         
         contenu_brut = bytes(message[UDP].payload)
 
-        message_dechiffre = dechiffrement_plutotBonneConfidentialite(contenu_brut, "rossignol2.bmp") #images/
+        message_dechiffre = dechiffrement_plutotBonneConfidentialite(contenu_brut, "images/rossignol2.bmp")
         
         print("\n\nMessage n°", num+1, ':\t',  message.summary())
         print("\nMessage déchiffré :", message_dechiffre.decode(), "\n")
-

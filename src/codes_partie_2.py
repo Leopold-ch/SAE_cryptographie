@@ -18,6 +18,7 @@ def chiffrement_AES(texte):
 
     return cle, texte_chiffre
 
+
 def dechiffrement_AES(texte_chiffre, cle):
     """fonction de déchiffrement de texte chiffré grâce à AES
 
@@ -32,6 +33,7 @@ def dechiffrement_AES(texte_chiffre, cle):
     texte_dechiffre = fernet.decrypt(texte_chiffre)
 
     return texte_dechiffre.decode()
+
 
 def cle_MrRobot(nom_image):
     """fonction d'obtention de la clé de MrRobot
@@ -51,6 +53,7 @@ def cle_MrRobot(nom_image):
         cle += str(couleur % 2)
     
     return bytes(cle, 'utf-8')
+
 
 
 if __name__ == '__main__':
